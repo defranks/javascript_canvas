@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Drawing Area</title>
+<!-- You can add your style here rather than in an external style sheet. -->
+<style>
+	canvas {
+	    border:5px solid #d3d3d3;
+	    background-color: #f1f1f1;
+	    display: block;
+	}
+</style>
+</head>
+<body>
+    <!-- DO NOT MODIFY THIS HTML -->
+    <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
+    <input type = "color" id = "picker"/>
+</body>
+<script>
+var canvas = document.getElementById("myCanvas");
+var context = canvas.getContext('2d');
+var picker = document.getElementById("picker");
+var w = window.innerWidth;
+var h = window.innerHeight;
+var color = 'black';
+var func = function (z) { draw(z.x,z.y); };
+canvas.width = w * .8;
+canvas.height = h * .8;
+
+window.addEventListener("keydown", function(event){
+	 var key = event.which || event.keyCode;
+	 if (key == 66){
+			console.log('blueeee');
+			context.fillStyle = 'blue';}
+	else if (key == 82){
+			 console.log('reddd');
+			 context.fillStyle = 'red';
+	 }
+	 else if (key == 71){
+ 			 console.log('greeeen');
+ 			 context.fillStyle = 'green';
+ 	 }
+	 else if(key == 89){
+ 			 console.log('yellllow');
+ 			 context.fillStyle = 'yellow';
+ 	 }
+	 else if(key == 32){
+ 			 console.log('clearing');
+ 			 context.clearRect(0, 0, canvas.width, canvas.height);
+ 	 }
+	 else if(key == 38){
+		 console.log("we tryna go uppp")
+		 canvas.removeEventListener('mousemove', func, true);
+ 	 }
+	 else if(key == 40){
+		 console.log("we tryna go downnn")
+		 canvas.addEventListener('mousemove', func, true);
+ 	 }
+
+	})
+	// keep track of whether the pen is lifted using vairable
+	// compare the number ((use variables to switch))
+function draw(x,y){
+	context.beginPath();
+	context.arc(x, y, 10, 0, 2 * Math.PI);
+	context.fill();
+}
+
+canvas.addEventListener('mousemove', func, true);
+
+window.addEventListener("change", function () {
+	context.fillStyle = picker.value;
+})
+
+</script>
